@@ -40,6 +40,7 @@ func _on_left_wall_area_entered(area: Area2D) -> void:
 		pass
 
 func _on_player_bounce(player) -> void:
+	# randomise angle depenging on which part of the platform ball landed
 	if player.position.x + 32 < position.x:
 		velocity.x += randf_range(0.1, 0.5)
 	elif player.position.x - 32 > position.x:
