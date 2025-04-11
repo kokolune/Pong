@@ -1,0 +1,67 @@
+[gd_scene load_steps=7 format=3 uid="uid://b5ajqsnlsyhgy"]
+
+[ext_resource type="PackedScene" uid="uid://cl7vd2iedpqul" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Script" uid="uid://c0imndecotai7" path="res://scripts/main.gd" id="1_sugp2"]
+[ext_resource type="PackedScene" uid="uid://cf42pqhbcac0j" path="res://scenes/enemy.tscn" id="2_jyhfs"]
+[ext_resource type="PackedScene" uid="uid://divprha3g4fsn" path="res://scenes/ball.tscn" id="4_jyhfs"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_jyhfs"]
+a = Vector2(2, -387)
+b = Vector2(2, 1208)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_tbgi4"]
+a = Vector2(1, 1142)
+b = Vector2(1, -457)
+
+[node name="Main" type="Node"]
+script = ExtResource("1_sugp2")
+
+[node name="Ball" parent="." instance=ExtResource("4_jyhfs")]
+position = Vector2(400, 300)
+scale = Vector2(0.3, 0.3)
+speed = 800
+
+[node name="StartPosition" type="Marker2D" parent="."]
+position = Vector2(400, 1596)
+
+[node name="BallStartPostion" type="Marker2D" parent="."]
+position = Vector2(400, 800)
+
+[node name="EnemyStartPostion" type="Marker2D" parent="."]
+position = Vector2(400, 6)
+
+[node name="StartTimer" type="Timer" parent="."]
+wait_time = 1.315
+one_shot = true
+
+[node name="Player" parent="." instance=ExtResource("1_o5qli")]
+position = Vector2(400, 1594)
+scale = Vector2(0.75, 0.75)
+
+[node name="Enemy" parent="." instance=ExtResource("2_jyhfs")]
+position = Vector2(400, 3)
+scale = Vector2(0.75, 0.75)
+
+[node name="RightWall" type="Area2D" parent="."]
+position = Vector2(796, 392)
+scale = Vector2(0.84833, 1.01192)
+metadata/_edit_group_ = true
+
+[node name="RightWallCollisionShape" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("SegmentShape2D_jyhfs")
+
+[node name="LeftWall" type="Area2D" parent="."]
+position = Vector2(-3, 487)
+metadata/_edit_group_ = true
+
+[node name="LeftWallCollisionShape" type="CollisionShape2D" parent="LeftWall"]
+position = Vector2(5, -30)
+shape = SubResource("SegmentShape2D_tbgi4")
+
+[connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="area_entered" from="Player" to="Player" method="_on_area_entered"]
+[connection signal="bounce" from="Player" to="Ball" method="_on_player_bounce"]
+[connection signal="area_entered" from="Enemy" to="Enemy" method="_on_area_entered"]
+[connection signal="bounce" from="Enemy" to="Ball" method="_on_enemy_bounce"]
+[connection signal="area_entered" from="RightWall" to="Ball" method="_on_right_wall_area_entered"]
+[connection signal="area_entered" from="LeftWall" to="Ball" method="_on_left_wall_area_entered"]
