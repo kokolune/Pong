@@ -28,4 +28,5 @@ func start(pos):
 
 func _on_area_entered(area: Area2D) -> void:
 	if area != player:
+		print("player bounce")
 		bounce.emit(player)

@@ -19,7 +19,7 @@ script = ExtResource("1_sugp2")
 [node name="Ball" parent="." instance=ExtResource("4_jyhfs")]
 position = Vector2(400, 300)
 scale = Vector2(0.3, 0.3)
-speed = 800
+speed = 600
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(400, 1596)
